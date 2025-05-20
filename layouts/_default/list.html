@@ -1,0 +1,39 @@
+{{ define "main" }}
+  <section class="py-12">
+    <div class="container-padded">
+      <div class="max-w-5xl mx-auto">
+        <header class="mb-10">
+          <h1 class="text-4xl font-bold text-gray-900">{{ .Title }}</h1>
+          {{ with .Description }}
+            <p class="mt-3 text-xl text-gray-600">{{ . }}</p>
+          {{ end }}
+        </header>
+        
+        <div class="prose max-w-none mb-12">
+          {{ .Content }}
+        </div>
+        
+        {{ if .Pages }}
+          <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {{ range .Pages }}
+              <div class="card">
+                {{ with .Params.image }}
+                  <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-48 object-cover">
+                {{ end }}
+                <div class="card-body">
+                  <h2 class="text-xl font-bold mb-2">
+                    <a href="{{ .RelPermalink }}" class="text-aesthetic-blue hover:text-aesthetic-gold">
+                      {{ .Title }}
+                    </a>
+                  </h2>
+                  <p class="text-gray-600 mb-4">{{ .Description | truncate 120 }}</p>
+                  <a href="{{ .RelPermalink }}" class="btn btn-outline">Read more</a>
+                </div>
+              </div>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

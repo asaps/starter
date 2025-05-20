@@ -1,0 +1,55 @@
+<nav class="flex items-center justify-between py-4">
+  <div class="flex items-center flex-shrink-0">
+    <a href="{{ .Site.Home.RelPermalink }}" class="text-2xl font-bold text-aesthetic-blue">
+      {{ .Site.Title }}
+    </a>
+  </div>
+  
+  <!-- Desktop navigation -->
+  <div class="hidden md:flex md:items-center md:space-x-4">
+    {{ range .Site.Menus.main }}
+      {{ $isActive := or (eq $.RelPermalink .URL) (eq (print $.RelPermalink "index.html") .URL) }}
+      <a href="{{ .URL }}" class="nav-link {{ if $isActive }}nav-link-active{{ end }}" {{ if .Post }}{{ .Post }}{{ end }}>
+        {{ .Name }}
+      </a>
+    {{ end }}
+    
+    {{ with .Site.Menus.cta }}
+      {{ range . }}
+        <a href="{{ .URL }}" class="btn btn-primary ml-4" {{ if .Post }}{{ .Post }}{{ end }}>
+          {{ .Name }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </div>
+  
+  <!-- Mobile menu button -->
+  <div class="md:hidden">
+    <button id="mobile-menu-toggle" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-aesthetic-blue" aria-controls="mobile-menu" aria-expanded="false">
+      <span class="sr-only">Open main menu</span>
+      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="hidden md:hidden py-2 space-y-1">
+  {{ range .Site.Menus.main }}
+    {{ $isActive := or (eq $.RelPermalink .URL) (eq (print $.RelPermalink "index.html") .URL) }}
+    <a href="{{ .URL }}" class="block px-3 py-2 rounded-md text-base font-medium {{ if $isActive }}text-aesthetic-blue bg-blue-50{{ else }}text-gray-700 hover:text-aesthetic-blue hover:bg-gray-50{{ end }}" {{ if .Post }}{{ .Post }}{{ end }}>
+      {{ .Name }}
+    </a>
+  {{ end }}
+  
+  {{ with .Site.Menus.cta }}
+    {{ range . }}
+      <div class="px-3 py-2">
+        <a href="{{ .URL }}" class="block w-full btn btn-primary text-center" {{ if .Post }}{{ .Post }}{{ end }}>
+          {{ .Name }}
+        </a>
+      </div>
+    {{ end }}
+  {{ end }}
+</div>

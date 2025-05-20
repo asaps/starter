@@ -1,0 +1,45 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Axinite Starter Theme'
+
+# Build settings for Tailwind CSS
+[build]
+  writeStats = true  # Enable Hugo stats for Tailwind's content purging
+
+[module]
+  [module.hugoVersion]
+    extended = true  # Require Hugo Extended for asset processing
+    min = "0.112.0"  # Minimum version with good Tailwind support
+  
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  
+  # Mount Tailwind config for Hugo processing
+  [[module.mounts]]
+    source = "tailwind.config.js"
+    target = "assets/tailwind.config.js"
+  
+  # Mount the stats file for Tailwind
+  [[module.mounts]]
+    source = "hugo_stats.json"
+    target = "assets/hugo_stats.json"
+    disableWatch = true
+
+# Default parameters
+[params]
+  description = "A starter theme for Axinite event sites with Tailwind CSS integration."
+  copyright = "The Aesthetic Society. All rights reserved."
+  
+  # Default color scheme
+  [params.colors]
+    primary = "#1a365d"  # aesthetic-blue
+    secondary = "#c9b037"  # aesthetic-gold

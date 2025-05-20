@@ -1,0 +1,29 @@
+{{ define "main" }}
+  <section class="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
+    <div class="container-padded">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900">
+          {{ .Title }}
+        </h1>
+        <p class="mt-6 text-xl text-gray-600">
+          {{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}
+        </p>
+        {{ with .Site.Menus.cta }}
+          <div class="mt-8 flex justify-center space-x-4">
+            {{ range . }}
+              <a href="{{ .URL }}" class="btn btn-primary">{{ .Name }}</a>
+            {{ end }}
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-16">
+    <div class="container-padded">
+      <div class="max-w-7xl mx-auto">
+        {{ .Content }}
+      </div>
+    </div>
+  </section>
+{{ end }}

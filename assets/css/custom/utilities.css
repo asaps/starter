@@ -1,0 +1,60 @@
+/* Custom utility classes */
+@layer utilities {
+  /* Container with padding for consistent sections */
+  .container-padded {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Aspect ratios for media */
+  .aspect-video {
+    @apply aspect-w-16 aspect-h-9;
+  }
+  
+  .aspect-square {
+    @apply aspect-w-1 aspect-h-1;
+  }
+  
+  /* Text styles */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Visually hidden (accessibility) */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  }
+  
+  /* Responsive spacer classes */
+  .spacer-xs {
+    @apply h-4 md:h-6;
+  }
+  
+  .spacer-sm {
+    @apply h-6 md:h-8;
+  }
+  
+  .spacer-md {
+    @apply h-8 md:h-12;
+  }
+  
+  .spacer-lg {
+    @apply h-12 md:h-16;
+  }
+  
+  .spacer-xl {
+    @apply h-16 md:h-24;
+  }
+  
+  /* Common transitions */
+  .transition-fast {
+    @apply transition-all duration-150 ease-in-out;
+  }
+  
+  .transition-normal {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  .transition-slow {
+    @apply transition-all duration-500 ease-in-out;
+  }
+}

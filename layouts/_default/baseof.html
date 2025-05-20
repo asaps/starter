@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+    
+    <!-- Process Tailwind CSS -->
+    {{ $css := resources.Get "css/tailwind.css" }}
+    
+    {{ if (resources.HasFunction "css.TailwindCSS") }}
+      {{ $css = $css | css.TailwindCSS }}
+    {{ else if (resources.HasFunction "css.PostCSS") }}
+      {{ $css = $css | css.PostCSS }}
+    {{ else }}
+      {{ $css = $css | resources.PostCSS }}
+    {{ end }}
+    
+    {{ if hugo.IsProduction }}
+      {{ $css = $css | minify | fingerprint | resources.PostProcess }}
+      <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+    {{ else }}
+      <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+    {{ end }}
+    
+    {{ block "head" . }}{{ end }}
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <header class="bg-white shadow-sm">
+      <div class="container-padded">
+        {{ partial "header.html" . }}
+      </div>
+    </header>
+    
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+    
+    <footer class="bg-gray-50 border-t border-gray-200 py-12">
+      <div class="container-padded">
+        {{ partial "footer.html" . }}
+      </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    {{ $js := resources.Get "js/app.js" | js.Build "main.js" }}
+    
+    {{ if hugo.IsProduction }}
+      {{ $js = $js | minify | fingerprint }}
+      <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+    {{ else }}
+      <script src="{{ $js.RelPermalink }}" defer></script>
+    {{ end }}
+    
+    {{ block "scripts" . }}{{ end }}
+  </body>
+</html>

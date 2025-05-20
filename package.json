@@ -1,0 +1,17 @@
+{
+  "name": "axinite-starter",
+  "version": "1.0.0",
+  "description": "Starter theme for Axinite event sites",
+  "scripts": {
+    "dev": "hugo server --disableFastRender",
+    "build": "hugo --gc --minify"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.3.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "@tailwindcss/forms": "^0.5.4",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.27",
+    "postcss-cli": "^10.1.0"
+  }
+}
